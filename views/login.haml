@@ -1,0 +1,70 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    /
+      Basic Page Needs
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:charset => "utf-8"}/
+    %title #{@title}
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    /
+      Mobile Specific Metas
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    /
+      FONT
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "//fonts.googleapis.com/css?family=Raleway:400,300,600", :rel => "stylesheet", :type => "text/css"}/
+    /
+      CSS
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "../css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "../css/skeleton.css", :rel => "stylesheet"}/
+    %link{:href => "../css/custom.css", :rel => "stylesheet"}/
+    /
+      Favicon
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "images/favicon.png", :rel => "icon", :type => "image/png"}/
+  %body
+    /
+      Primary Page Layout
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    .container
+      - if flash[:message]
+        .flash
+          = flash[:message]
+      .row.navbar
+        .one.column{:style => "padding-top: 5px"}
+          %img.fedora{:src => "images/fedora.png"}
+        .four.columns{:style => "padding-top: 10px"}
+          %h5 Sinatra Broadcast
+        .seven.columns
+          .u-pull-right
+            %ul.navbar-list
+              %li.navbar-item
+                %a.navbar-link{:href => "/about"} About
+              %li.navbar-item
+                %a.navbar-link{:href => "/subscribe"} Subscribe
+              %li.navbar-item
+                %a.navbar-link{:href => "/"} Broadcasts
+    .container
+      .row{:style => "margin-top: 5%"}
+        %form{:action => "/login", :method => "POST"}
+          .row
+            .six.columns
+              %label{:for => "username"} Username
+              %input.u-full-width{:name => "username", :placeholder => "Username", :type => "text"}/
+              %label{:for => "password"} Password
+              %input.u-full-width{:name => "password", :placeholder => "Password", :type => "password"}/
+              %input.button-primary{:type => "submit", :value => "Login"}/
+
+    .container.footer
+      .row
+        .column
+          %p Copyright &copy #{Time.current.year} Sinatra Broadcast. All Rights Reserved.
+
+    /
+      End of Document
+      ––––––––––––––––––––––––––––––––––––––––––––––––––

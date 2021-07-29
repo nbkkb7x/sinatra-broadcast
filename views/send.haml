@@ -1,0 +1,102 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    /
+      Basic Page Needs
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:charset => "utf-8"}/
+    %title #{@title}
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    /
+      Mobile Specific Metas
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    /
+      FONT
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "//fonts.googleapis.com/css?family=Raleway:400,300,600", :rel => "stylesheet", :type => "text/css"}/
+    /
+      CSS
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "../css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "../css/skeleton.css", :rel => "stylesheet"}/
+    %link{:href => "../css/custom.css", :rel => "stylesheet"}/
+    /
+      Favicon
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "images/favicon.png", :rel => "icon", :type => "image/png"}/
+    /
+      JS
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %script{:src => "https://code.jquery.com/jquery-1.5.js"}
+  %body
+    /
+      Primary Page Layout
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    .container
+      .row.navbar
+        .one.column{:style => "padding-top: 5px"}
+          %img.fedora{:src => "images/fedora.png"}
+        .four.columns{:style => "padding-top: 10px"}
+          %h5 Sinatra Broadcast
+        .seven.columns
+          .u-pull-right
+            -if logged_in?
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/logout"} Logout
+                %li.navbar-item
+                  %a.navbar-link{:href => "/broadcasts"} Broadcasts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/contacts"} Contacts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/send"} Send
+                %li.navbar-item
+                  %a.navbar-link{:href => "/"} Home
+            - else
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/login"} Log In
+                %li.navbar-item
+                  %a.navbar-link{:href => "/about"} About
+                %li.navbar-item
+                  %a.navbar-link{:href => "/subscribe"} Subscribe
+                %li.navbar-item
+    .container
+      .row
+        .two-thirds.column{:style => "margin-top: 5%"}
+          %h4.title Send Your Broadcast Here.
+          %form{:action => "/send", :method => "POST"}
+            .row
+              .ten.columns
+                %input{:name => "from", :type => "hidden", :value => "+19043925200"}
+                %label{:for => "BroadcastSubjectInput"} Your Subject
+                %input.u-full-width{:name => "subject", :placeholder => "Title & Date", :type => "text"}/
+                %label{:for => "Message"} Your Message
+                %textarea.u-full-width{:name => "body", :placeholder => "Your broadcast goes here…", :type => "text", :onkeyup => "countChar(this)"}
+                .row
+                  .five.columns.u-pull-left
+                    %input.button-primary{:type => "submit", :value => "Broadcast"}/
+                  .six.columns
+                    Characters Remaining:
+                  .one.column.u-pull-left#charNum
+    .container.footer
+      .row
+        .column
+          %p Copyright &copy #{Time.current.year} Sinatra Broadcast. All Rights Reserved.
+
+
+    /
+      Scripts
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+:javascript
+  function countChar(val) {
+    var len = val.value.length;
+    if (len >= 1500) {
+      val.value = val.value.substring(0, 1500);
+    } else {
+      $('#charNum').text(1500 - len);
+    }
+  };

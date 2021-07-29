@@ -1,0 +1,74 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    /
+      Basic Page Needs
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:charset => "utf-8"}/
+    %title #{@title}
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    /
+      Mobile Specific Metas
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    /
+      FONT
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "//fonts.googleapis.com/css?family=Raleway:400,300,600", :rel => "stylesheet", :type => "text/css"}/
+    /
+      CSS
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "../css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "../css/skeleton.css", :rel => "stylesheet"}/
+    %link{:href => "../css/custom.css", :rel => "stylesheet"}/
+    /
+      Favicon
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "images/favicon.png", :rel => "icon", :type => "image/png"}/
+  %body
+    /
+      Primary Page Layout
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    .container
+      .row.navbar
+        .one.column{:style => "padding-top: 5px"}
+          %img.fedora{:src => "images/fedora.png"}
+        .four.columns{:style => "padding-top: 10px"}
+          %h5 Sinatra Broadcast
+        .seven.columns
+          .u-pull-right
+            -if logged_in?
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/logout"} Logout
+                %li.navbar-item
+                  %a.navbar-link{:href => "/broadcasts"} Broadcasts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/contacts"} Contacts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/send"} Send
+            - else
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/login"} Log In
+                %li.navbar-item
+                  %a.navbar-link{:href => "/about"} About
+                %li.navbar-item
+                  %a.navbar-link{:href => "/subscribe"} Subscribe
+                %li.navbar-item
+                  %a.navbar-link{:href => "/"} Broadcasts
+    .container
+      .row{:style => "margin-top: 5%"}
+        .ten.columns
+          %h5 Thank You for Subscribing!
+          %p Our New Sinatra Broadcasts should be coming to you shortly. In the meantime, you can catch up on past Broadcasts <a href='/'>here</a>.
+    .container.footer
+      .row
+        .column
+          %p Copyright &copy #{Time.current.year} Sinatra Broadcast. All Rights Reserved.
+
+    /
+      End of Document
+      ––––––––––––––––––––––––––––––––––––––––––––––––––

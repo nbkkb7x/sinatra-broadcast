@@ -1,0 +1,16 @@
+development:
+  host: <%= ENV['DB_HOST'] %>
+  adapter: postgresql
+  encoding: unicode
+  database: sinatra_broadcast_development
+  pool: 2
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['DB_NAME'] %>
+  pool: 5
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>

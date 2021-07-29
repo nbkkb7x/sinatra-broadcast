@@ -1,0 +1,96 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    /
+      Basic Page Needs
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:charset => "utf-8"}/
+    %title #{@title}
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    /
+      Mobile Specific Metas
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    /
+      FONT
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "//fonts.googleapis.com/css?family=Raleway:400,300,600", :rel => "stylesheet", :type => "text/css"}/
+    /
+      CSS
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "../css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "../css/skeleton.css", :rel => "stylesheet"}/
+    %link{:href => "../css/custom.css", :rel => "stylesheet"}/
+    /
+      Favicon
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    %link{:href => "images/favicon.png", :rel => "icon", :type => "image/png"}/
+  %body
+    /
+      Primary Page Layout
+      ––––––––––––––––––––––––––––––––––––––––––––––––––
+    .container
+      .row.navbar
+        .one.column{:style => "padding-top: 5px"}
+          %img.fedora{:src => "images/fedora.png"}
+        .four.columns{:style => "padding-top: 10px"}
+          %h5 Sinatra Broadcast
+        .seven.columns
+          .u-pull-right
+            -if logged_in?
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/logout"} Logout
+                %li.navbar-item
+                  %a.navbar-link{:href => "/broadcasts"} Broadcasts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/contacts"} Contacts
+                %li.navbar-item
+                  %a.navbar-link{:href => "/send"} Send
+                %li.navbar-item
+                  %a.navbar-link{:href => "/"} Home
+            - else
+              %ul.navbar-list
+                %li.navbar-item
+                  %a.navbar-link{:href => "/login"} Log In
+                %li.navbar-item
+                  %a.navbar-link{:href => "/about"} About
+                %li.navbar-item
+                  %a.navbar-link{:href => "/subscribe"} Subscribe
+                %li.navbar-item
+    .container
+      .row{:style => "margin-top: 5%"}
+        %h5.title Your Current Contacts.
+        .column
+          %table.u-full-width
+            %thead
+              %tr
+                %th Name
+                %th Phone Number
+                %th
+            %tbody
+              - @contacts.each do |contact|
+                %tr
+                  %td= contact.name
+                  %td= contact.phone_number
+                  %td{}
+                    %form{:style => "margin: .75rem auto auto .25rem", :action => "/contacts/#{contact.id}", :method => "post"}
+                      %input{:name => "_method", :type => "hidden", :value => "DELETE"}/
+                      %input.button#button-delete{:type => "submit", :value => "Delete"}/
+    .container
+      .two-thirds.column{:style => "margin-top: 5%"}
+        %h5.title Load a New Contact.
+        %form{:action => "/contacts", :method => "POST"}
+          .row
+            .six.columns
+              %label{:for => "ContactNameInput"} Contact Name
+              %input.u-full-width{:name => "name", :placeholder => "First & Last Name", :type => "text"}/
+              %label{:for => "ContactNumber"} Phone Number
+              %input.u-full-width{:name => "phone_number", :placeholder => "+15558675309", :type => "tel"}
+              %input.button-primary{:type => "submit", :value => "Save Contact"}/
+    .container.footer
+      .row
+        .column
+          %p Copyright &copy #{Time.current.year} Sinatra Broadcast. All Rights Reserved.
