@@ -71,14 +71,18 @@
                 %th Body
                 %th
             %tbody
-              - @broadcasts.each do |broadcast|
+              - if @broadcasts.empty?
                 %tr
-                  %td= broadcast.subject
-                  %td= broadcast.body.truncate(250, :omission => "...")
-                  %td{}
-                    %form{:style => "margin: .75rem auto auto .25rem", :action => "/broadcasts/#{broadcast.id}", :method => "post"}
-                      %input{:name => "_method", :type => "hidden", :value => "DELETE"}/
-                      %input.button#button-delete{:type => "submit", :value => "Delete"}/
+                  %td{:colspan => "3"} No broadcasts sent.
+              - else
+                - @broadcasts.each do |broadcast|
+                  %tr
+                    %td= broadcast.subject
+                    %td= broadcast.body.truncate(250, :omission => "...")
+                    %td{}
+                      %form{:style => "margin: .75rem auto auto .25rem", :action => "/broadcasts/#{broadcast.id}", :method => "post"}
+                        %input{:name => "_method", :type => "hidden", :value => "DELETE"}/
+                        %input.button#button-delete{:type => "submit", :value => "Delete"}/
     .container.footer
       .row
         .column

@@ -59,17 +59,21 @@
                   %a.navbar-link{:href => "/subscribe"} Subscribe
                 %li.navbar-item
     .container
-      - @broadcasts.each do |broadcast|
-        .row{:style => "margin-top: 2%"}
-          .ten.columns
-            %p= broadcast.created_at.strftime("%Y-%m-%d")
-            %h4= broadcast.subject
-            %p= broadcast.body.truncate(150)
-            .br
-          .two.columns 
-            %form{:style => "margin: .75rem auto auto .25rem", :action => "/broadcasts/#{broadcast.id}", :method => "get"}
-              %input{:name => "_method", :type => "hidden", :value => "VIEW"}/
-              %input.button#button-view{:type => "submit", :value => "View"}/
+      .row{:style => "margin-top: 2%"}
+        -if @broadcasts.empty?
+          %h4 No broadcasts yet.
+        -else
+          - @broadcasts.each do |broadcast|
+            .row{:style => "margin-top: 2%"}
+              .ten.columns
+                %p= broadcast.created_at.strftime("%Y-%m-%d")
+                %h4= broadcast.subject
+                %p= broadcast.body.truncate(150)
+                .br
+              .two.columns 
+                %form{:style => "margin: .75rem auto auto .25rem", :action => "/broadcasts/#{broadcast.id}", :method => "get"}
+                  %input{:name => "_method", :type => "hidden", :value => "VIEW"}/
+                  %input.button#button-view{:type => "submit", :value => "View"}/
     .container.footer
       .row
         .column
